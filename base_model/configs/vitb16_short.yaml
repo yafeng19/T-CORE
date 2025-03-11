@@ -1,0 +1,5 @@
+train:
+  dataset_path: ImageNet:split=TRAIN
+  batch_size_per_gpu: 32
+student:
+  arch: vit_base

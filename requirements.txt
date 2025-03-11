@@ -1,0 +1,7 @@
+cuml-cu11
+omegaconf
+fvcore
+iopath
+submitit
+xformers==0.0.18
+torchmetrics==0.10.3
