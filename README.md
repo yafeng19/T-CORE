@@ -14,7 +14,7 @@ This is the official code for the paper "When the Future Becomes the Past: Tamin
 
 ## 🚩 Checkpoints
 
-| Dataset  | Backbone | Epoch | $J\&F_m$         | mIoU | PCK@0.1 | Download |
+| Dataset  | Backbone | Epoch | $J\\&F_m$        | mIoU | PCK@0.1 | Download |
 | -------- | -------- | ----- | ---------------- | ---- | ------- | -------- |
 | ImageNet | VIT-S/16 | 100 | 64.1               | 39.7 | 46.2    |  [link](https://github.com/yafeng19/T-CORE/tree/master/ckpt/vits16_100ep_INET.pth) |
 | K400     | VIT-S/16 | 400 | 64.7               | 37.8 | 47.0    |  [link](https://github.com/yafeng19/T-CORE/tree/master/ckpt/vits16_400ep_K400.pth) |
