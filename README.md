@@ -1,9 +1,9 @@
 # T-CoRe
 
 
-This is the official code for the paper "When the Future Becomes the Past: Taming Temporal Correspondence for Self-supervised Video Representation Learning" accepted by Conference on Computer Vision and Pattern Recognition (CVPR 2025). This paper is available at [**here**]().
+This is the official code for the paper "When the Future Becomes the Past: Taming Temporal Correspondence for Self-supervised Video Representation Learning" accepted by Conference on Computer Vision and Pattern Recognition (CVPR 2025). This paper is available at [**here**](https://arxiv.org/abs/2503.15096).
 
-[![paper](https://img.shields.io/badge/arXiv-Paper-b31b1b.svg?style=flat)]() [![slides](https://img.shields.io/badge/Presentation-Slides-B762C1)](https://github.com/yafeng19/T-CORE) [![Website](https://img.shields.io/badge/Project-Website-87CEEB)](https://github.com/yafeng19/T-CORE) [![video](https://img.shields.io/badge/Video-Presentation-F9D371)](https://github.com/yafeng19/T-CORE)
+[![paper](https://img.shields.io/badge/arXiv-Paper-b31b1b.svg?style=flat)](https://arxiv.org/abs/2503.15096) [![slides](https://img.shields.io/badge/Presentation-Slides-B762C1)](https://github.com/yafeng19/T-CORE) [![Website](https://img.shields.io/badge/Project-Website-87CEEB)](https://github.com/yafeng19/T-CORE) [![video](https://img.shields.io/badge/Video-Presentation-F9D371)](https://github.com/yafeng19/T-CORE)
 
 **When the Future Becomes the Past: Taming Temporal Correspondence for Self-supervised Video Representation Learning**
 
@@ -16,9 +16,9 @@ This is the official code for the paper "When the Future Becomes the Past: Tamin
 
 | Dataset  | Backbone | Epoch | $J\\&F_m$        | mIoU | PCK@0.1 | Download |
 | -------- | -------- | ----- | ---------------- | ---- | ------- | -------- |
-| ImageNet | VIT-S/16 | 100 | 64.1               | 39.7 | 46.2    |  [link](https://github.com/yafeng19/T-CORE/tree/master/ckpt/vits16_100ep_INET.pth) |
-| K400     | VIT-S/16 | 400 | 64.7               | 37.8 | 47.0    |  [link](https://github.com/yafeng19/T-CORE/tree/master/ckpt/vits16_400ep_K400.pth) |
-| K400     | VIT-B/16 | 200 | 66.4               | 38.9 | 47.1    |  [link](https://github.com/yafeng19/T-CORE/tree/master/ckpt/vitb16_200ep_K400.pth) |
+| ImageNet | VIT-S/16 | 100 | 64.1               | 39.7 | 46.2    |  [link](https://huggingface.co/yafeng19/T-CORE/blob/main/ckpt/vits16_100ep_INET.pth) |
+| K400     | VIT-S/16 | 400 | 64.7               | 37.8 | 47.0    |  [link](https://huggingface.co/yafeng19/T-CORE/blob/main/ckpt/vits16_400ep_K400.pth) |
+| K400     | VIT-B/16 | 200 | 66.4               | 38.9 | 47.1    |  [link](https://huggingface.co/yafeng19/T-CORE/blob/main/ckpt/vitb16_200ep_K400.pth) |
 
 ## 💻 Environments
 
@@ -94,7 +94,7 @@ We provide a script with default parameters. Run the following command for train
 bash scripts/pretrain.sh
 ```
 
-The well-trained models are saved at [**here**](https://github.com/yafeng19/T-CORE/tree/master/ckpt).
+The well-trained models are saved at [**here**](https://huggingface.co/yafeng19/T-CORE/tree/main/ckpt).
 
 ## 📊 Evaluation
 
@@ -123,17 +123,17 @@ bash scripts/eval.sh
 
 If you find this repository useful in your research, please cite the following papers:
 
-<!-- ```
-@misc{liu2024pairsequalhierarchicallearning,
-      title={Not All Pairs are Equal: Hierarchical Learning for Average-Precision-Oriented Video Retrieval}, 
+```
+@misc{liu2025futurepasttamingtemporal,
+      title={When the Future Becomes the Past: Taming Temporal Correspondence for Self-supervised Video Representation Learning}, 
       author={Yang Liu and Qianqian Xu and Peisong Wen and Siran Dai and Qingming Huang},
-      year={2024},
-      eprint={2407.15566},
+      year={2025},
+      eprint={2503.15096},
       archivePrefix={arXiv},
       primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2407.15566}, 
+      url={https://arxiv.org/abs/2503.15096}, 
 }
-``` -->
+```
 
 ## 📧 Contact us
 
