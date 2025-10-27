@@ -143,9 +143,10 @@ def apply_optim_scheduler_with_aux(optimizer, lr, wd, last_layer_lr, aux_lr):
         wd_multiplier = param_group["wd_multiplier"]
         param_group["weight_decay"] = wd * wd_multiplier
         param_group["lr"] = (last_layer_lr if is_last_layer else lr) * lr_multiplier
-
         is_aux_layer = param_group["is_aux_layer"]
-        param_group["lr"] = aux_lr if is_aux_layer else lr
+        # fix here
+        if is_aux_layer:
+            param_group["lr"] = aux_lr
 
 
 def do_test(cfg, model, iteration):
