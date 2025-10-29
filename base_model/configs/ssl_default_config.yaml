@@ -79,6 +79,8 @@ ibot:
   head_nlayers: 3
   head_hidden_dim: 2048
 train:
+  debug_save: False # whether to save crops and attention maps
+  debug_save_path: ./debug_save  # path to save crops and attention maps if debug_save is True
   batch_size_per_gpu: 64
   dataset: Kinetics
   dataset_path: Kinetics:split=TRAIN
