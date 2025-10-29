@@ -26,33 +26,43 @@ def gen_mask(global_crops, n_tokens, mask_probability, mask_ratio_tuple, mask_ge
 
 
 
+######################################################
+# NOTE: For attention map visualization and mask visualization
 def collate_data_and_cast_with_aux_use_past_future_frames(samples_list, mask_ratio_tuple, mask_probability, dtype, n_tokens=None, mask_generator=None):
     # print(len(samples_list))   # batch size
     # print(len(samples_list[0]))   # 2: [image_list, label]
     # print(len(samples_list[0][0]))   # 3 [past_frame, current_frame, future_frame]
     # print(samples_list[0][1])   # label
-    # print(samples_list[0][0][0].keys(), samples_list[0][0][1].keys(), samples_list[0][0][2].keys())   # past_frame_dict, current_frame_dict, future_frame_dict
+    # print(samples_list[0][0][0].keys(), samples_list[0][0][1].keys())   # past_frame_dict, current_frame_dict, future_frame_dict
     
     n_global_crops = len(samples_list[0][0][0]["global_crops"])
     n_local_crops = len(samples_list[0][0][0]["local_crops"])
 
     collated_global_crops_current = torch.stack([s[0][1]["global_crops"][i] for i in range(n_global_crops) for s in samples_list])
     collated_local_crops_current = torch.stack([s[0][1]["local_crops"][i] for i in range(n_local_crops) for s in samples_list])
+    frame_name_current = [s[0][1]["frame_name"]+f"_crop_{i+1}" for i in range(n_global_crops) for s in samples_list]
+    # print(collated_global_crops_current.shape)
     
     collated_global_crops_past = torch.stack([s[0][0]["global_crops"][i] for i in range(n_global_crops) for s in samples_list])
+    frame_name_past = [s[0][0]["frame_name"]+f"_crop_{i+1}" for i in range(n_global_crops) for s in samples_list]
+
     collated_global_crops_future = torch.stack([s[0][2]["global_crops"][i] for i in range(n_global_crops) for s in samples_list])
+    frame_name_future = [s[0][2]["frame_name"]+f"_crop_{i+1}" for i in range(n_global_crops) for s in samples_list]
 
     collated_masks, upperbound, mask_indices_list, masks_weight = gen_mask(collated_global_crops_current, n_tokens, mask_probability, mask_ratio_tuple, mask_generator)
 
     return {
         "collated_global_crops": collated_global_crops_current.to(dtype),
         "collated_local_crops": collated_local_crops_current.to(dtype),
+        "frame_name_current": frame_name_current,
         "collated_global_crops_past": collated_global_crops_past.to(dtype),
+        "frame_name_past": frame_name_past,
         "collated_global_crops_future": collated_global_crops_future.to(dtype),
+        "frame_name_future": frame_name_future,
         "collated_masks": collated_masks,
         "mask_indices_list": mask_indices_list,
         "masks_weight": masks_weight,
         "upperbound": upperbound,
         "n_masked_patches": torch.full((1,), fill_value=mask_indices_list.shape[0], dtype=torch.long)
     }
-
+######################################################

@@ -11,6 +11,10 @@ from base_model.models.auxiliary_decoder import AuxiliaryDecoder
 from base_model.utils.param_groups import get_params_groups_with_decay, fuse_params_groups
 from base_model.fsdp import get_fsdp_wrapper, ShardedGradScaler, get_fsdp_modules, reshard_fsdp_model
 
+import base_model.distributed as distributed
+from base_model.utils.visualization import save_and_visualize_attn_maps, save_and_visualize_masks
+
+
 try:
     from xformers.ops import fmha
 except ImportError:
@@ -156,6 +160,18 @@ class SSLArch(nn.Module):
         n_masked_patches = mask_indices_list.shape[0]
         upperbound = images["upperbound"]
         masks_weight = images["masks_weight"].cuda(non_blocking=True)
+
+        ######################################################
+        # NOTE: For attention map visualization and mask visualization
+        if self.debug_save:
+            frame_name_current = images["frame_name_current"]
+            frame_name_past = images["frame_name_past"]
+            if self.use_future_aux:
+                frame_name_future = images["frame_name_future"]
+            if distributed.is_main_process():
+                save_and_visualize_masks(iteration, self.debug_save_path, frame_name_current, global_crops.detach().cpu(), masks.detach().cpu())
+        ######################################################
+                        
  
         global_crops_past = images["collated_global_crops_past"].cuda(non_blocking=True)
         global_crops_future = images["collated_global_crops_future"].cuda(non_blocking=True)
@@ -285,6 +301,16 @@ class SSLArch(nn.Module):
                 buffer_tensor_patch_tokens_future[:n_masked_patches].copy_(
                     torch.index_select(ibot_future_student_patch_tokens.flatten(0, 1), dim=0, index=mask_indices_list)
                 )
+
+                ######################################################
+                # NOTE: For attention map visualization and mask visualization
+                if self.debug_save:
+                    if distributed.is_main_process():
+                        save_and_visualize_attn_maps(iteration, self.debug_save_path, frame_name_current, frame_name_past, frame_name_future,
+                                        past_cross_attn_weights.detach().cpu(), future_cross_attn_weights.detach().cpu())
+                ######################################################
+                    
+
 
             else:
                 _dim = student_global_backbone_output_dict["x_norm_clstoken"].shape[-1]
